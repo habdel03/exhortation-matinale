@@ -178,9 +178,9 @@ function loadYouTubeSection() {
 
   // Replace VIDEO_ID_1, VIDEO_ID_2, VIDEO_ID_3 with real YouTube video IDs
   const videoIds = [
-    'VIDEO_ID_1',
-    'VIDEO_ID_2',
-    'VIDEO_ID_3'
+    'rnhUFMRUJO0',
+    'VPAtx194pec',
+    'qkZpBw6uf5s'
   ];
 
   container.innerHTML = videoIds.map(vid => `
