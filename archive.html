@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive — Exhortation Prophétique Matinale</title>
+  <meta name="description" content="Parcourez toutes les exhortations prophétiques publiées. Une archive complète de la Parole de Dieu pour votre édification quotidienne.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Archive — Exhortation Prophétique Matinale">
+  <meta property="og:description" content="Toutes les exhortations prophétiques en un seul endroit.">
+  <meta property="og:image"       content="assets/images/og-image.jpg">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="marquee-inner">
+      ✦ &nbsp; « La parole de Dieu est vivante et efficace » — Hébreux 4:12 &nbsp; ✦ &nbsp; Exhortation Prophétique Matinale — Une Parole, chaque jour
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-word">Exhortation</span>
+        <span class="logo-sub">Prophétique Matinale</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="archive.html" class="active">Archive</a>
+        <a href="about.html">À propos</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="archive.html" class="btn btn-primary nav-cta" style="padding:10px 22px;font-size:0.78rem;">Lire l'archive</a>
+      <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu">
+    <a href="index.html">Accueil</a>
+    <a href="archive.html">Archive</a>
+    <a href="about.html">À propos</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-label" style="justify-content:center;">La Parole au fil du temps</div>
+      <h1>Archive des Exhortations</h1>
+      <p>Retrouvez toutes les exhortations prophétiques publiées. Chaque message est une graine de foi plantée pour votre édification.</p>
+    </div>
+  </section>
+
+  <!-- Archive Main -->
+  <main class="archive-main">
+    <div class="container">
+
+      <!-- Filters + Search -->
+      <div class="archive-filters">
+        <span class="filter-label">Filtrer :</span>
+        <div id="category-filters" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="filter-btn active" data-cat="all">Toutes</button>
+        </div>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Rechercher une exhortation…"
+            aria-label="Recherche"
+          >
+          <button id="search-btn" aria-label="Lancer la recherche">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Result count -->
+      <p style="font-family:var(--ff-sans);font-size:0.82rem;color:var(--text-muted);margin-bottom:24px;">
+        <span id="result-count">Chargement…</span>
+      </p>
+
+      <!-- Cards Grid -->
+      <div class="archive-list" id="archive-list">
+        <div class="loader-container" style="grid-column:1/-1">
+          <div class="loader-spinner"></div>
+          <p>Chargement des exhortations…</p>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-name">Exhortation Prophétique Matinale</div>
+          <p>Un ministère dédié à l'édification du corps de Christ à travers la Parole prophétique quotidienne.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="archive.html">Archive</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Catégories</h4>
+          <ul>
+            <li><a href="#">Foi</a></li>
+            <li><a href="#">Grâce</a></li>
+            <li><a href="#">Prophétie</a></li>
+            <li><a href="#">Prière</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Liens</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank">YouTube</a></li>
+            <li><a href="sitemap.xml">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> Exhortation Prophétique Matinale.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/archive.js"></script>
+</body>
+</html>

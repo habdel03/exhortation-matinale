@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Static pages -->
+  <url>
+    <loc>https://your-username.github.io/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://your-username.github.io/"/>
+  </url>
+
+  <url>
+    <loc>https://your-username.github.io/archive.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://your-username.github.io/about.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://your-username.github.io/contact.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!--
+    NOTE: Individual exhortation pages are loaded dynamically via JavaScript
+    from Firebase Firestore using query parameters (?id=DOCUMENT_ID).
+    For SEO purposes, consider adding each published exhortation URL here manually,
+    or use a build script to generate this file from your Firestore data.
+
+    Example:
+    <url>
+      <loc>https://your-username.github.io/exhortation.html?id=la-dimension-du-reste</loc>
+      <lastmod>2026-06-18</lastmod>
+      <changefreq>never</changefreq>
+      <priority>0.8</priority>
+    </url>
+  -->
+
+</urlset>

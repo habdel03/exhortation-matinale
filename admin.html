@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — Exhortation Prophétique Matinale</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+</head>
+<body>
+
+  <div class="topbar" style="text-align:center;">
+    <span style="font-family:var(--ff-sans);font-size:0.75rem;letter-spacing:0.12em;color:var(--gold);">
+      ✦ Interface d'Administration — Accès restreint
+    </span>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-word">Exhortation</span>
+        <span class="logo-sub">Administration</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">← Retour au site</a>
+        <a href="archive.html">Archive</a>
+      </div>
+      <span id="admin-status" style="font-family:var(--ff-sans);font-size:0.8rem;color:var(--text-muted);padding:8px 16px;"></span>
+    </nav>
+  </header>
+
+  <!-- Login Section -->
+  <div id="login-section" style="display:flex;align-items:center;justify-content:center;min-height:80vh;padding:40px 24px;">
+    <div style="background:var(--white);border-radius:var(--radius-lg);padding:56px 48px;border:1px solid var(--border);box-shadow:var(--shadow-md);max-width:420px;width:100%;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:20px;">🔐</div>
+      <h2 style="font-family:var(--ff-display);font-size:1.8rem;font-weight:700;color:var(--navy);margin-bottom:8px;">Connexion Admin</h2>
+      <p style="font-family:var(--ff-serif);font-style:italic;color:var(--text-muted);margin-bottom:32px;font-size:0.95rem;">Accès réservé aux administrateurs du ministère.</p>
+
+      <div class="form-group" style="text-align:left;">
+        <label for="login-email">E-mail</label>
+        <input type="email" id="login-email" placeholder="admin@ministere.org">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label for="login-password">Mot de passe</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+
+      <button onclick="loginAdmin()" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;" id="login-btn">
+        Se connecter
+      </button>
+
+      <p id="login-error" style="color:#ef4444;font-family:var(--ff-sans);font-size:0.82rem;margin-top:12px;display:none;"></p>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
+  <main class="admin-main" id="admin-panel" style="display:none;">
+    <div class="container">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;">
+        <div>
+          <h1 style="font-family:var(--ff-display);font-size:2rem;font-weight:700;color:var(--navy);margin-bottom:4px;">Tableau de bord</h1>
+          <p style="font-family:var(--ff-serif);font-style:italic;color:var(--text-muted);font-size:0.95rem;">Gérez les exhortations prophétiques.</p>
+        </div>
+        <button onclick="logoutAdmin()" class="btn btn-outline" style="font-size:0.8rem;padding:10px 20px;">
+          Se déconnecter
+        </button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;">
+        <div style="background:var(--navy);border-radius:var(--radius-md);padding:28px;color:var(--white);">
+          <div style="font-family:var(--ff-sans);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Total exhortations</div>
+          <div id="stat-total" style="font-family:var(--ff-display);font-size:2.5rem;font-weight:700;color:var(--white);">—</div>
+        </div>
+        <div style="background:var(--cream);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px;">
+          <div style="font-family:var(--ff-sans);font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Dernière publication</div>
+          <div id="stat-last" style="font-family:var(--ff-display);font-size:1.1rem;font-weight:600;color:var(--navy);">—</div>
+        </div>
+      </div>
+
+      <!-- Publish Form -->
+      <div class="admin-card">
+        <h2>Publier une exhortation</h2>
+        <p class="subtitle">Remplissez le formulaire ci-dessous pour publier une nouvelle exhortation.</p>
+        <div class="admin-divider"></div>
+
+        <form id="publish-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pub-titre">Titre *</label>
+              <input type="text" id="pub-titre" placeholder="La dimension du reste…" required
+                oninput="updateSlug(this.value)">
+            </div>
+            <div class="form-group">
+              <label for="pub-categorie">Catégorie *</label>
+              <select id="pub-categorie" required>
+                <option value="">— Choisir —</option>
+                <option value="Foi">Foi</option>
+                <option value="Grâce">Grâce</option>
+                <option value="Prophétie">Prophétie</option>
+                <option value="Prière">Prière</option>
+                <option value="Louange">Louange</option>
+                <option value="Sanctification">Sanctification</option>
+                <option value="Royaume">Royaume</option>
+                <option value="Promesse">Promesse</option>
+                <option value="Combat spirituel">Combat spirituel</option>
+                <option value="Identité en Christ">Identité en Christ</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pub-date">Date de publication *</label>
+              <input type="date" id="pub-date" required>
+            </div>
+            <div class="form-group">
+              <label for="pub-slug">Slug (URL)</label>
+              <input type="text" id="pub-slug" placeholder="généré automatiquement">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pub-contenu">Contenu HTML *</label>
+            <textarea id="pub-contenu" style="min-height:240px;font-family:monospace;font-size:0.88rem;font-style:normal;"
+              placeholder="&lt;p&gt;Entrez ici le contenu HTML de l'exhortation…&lt;/p&gt;"
+              oninput="updatePreview(this.value)" required></textarea>
+            <div class="char-count" id="char-count">0 caractères</div>
+          </div>
+
+          <div class="form-group">
+            <label>Aperçu du contenu</label>
+            <div class="preview-area" id="preview-area">L'aperçu apparaîtra ici…</div>
+          </div>
+
+          <div class="form-group">
+            <label for="pub-yt">URL YouTube (optionnel)</label>
+            <input type="url" id="pub-yt" placeholder="https://www.youtube.com/watch?v=…">
+          </div>
+
+          <div class="form-group">
+            <label for="pub-verse">Verset du jour (optionnel)</label>
+            <input type="text" id="pub-verse" placeholder="Car la parole de Dieu est vivante et efficace…">
+          </div>
+
+          <div class="form-group">
+            <label for="pub-verse-ref">Référence du verset</label>
+            <input type="text" id="pub-verse-ref" placeholder="Hébreux 4:12">
+          </div>
+
+          <div class="admin-divider"></div>
+
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary" id="pub-btn">
+              Publier l'exhortation
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+            <button type="button" class="btn btn-outline" onclick="clearForm()">Effacer</button>
+          </div>
+
+          <div id="pub-success" style="display:none;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:var(--radius-sm);padding:16px 20px;margin-top:16px;font-family:var(--ff-sans);font-size:0.88rem;color:#166534;">
+            ✅ Exhortation publiée avec succès !
+          </div>
+          <div id="pub-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);padding:16px 20px;margin-top:16px;font-family:var(--ff-sans);font-size:0.88rem;color:#991b1b;">
+          </div>
+        </form>
+      </div>
+
+      <!-- Recent exhortations list -->
+      <div style="margin-top:40px;">
+        <h3 style="font-family:var(--ff-display);font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:24px;">Exhortations récentes</h3>
+        <div id="admin-list">
+          <div class="loader-container"><div class="loader-spinner"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase.js"></script>
+
+  <script>
+  const auth = firebase.auth();
+
+  // Set today as default date
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('pub-date').value = today;
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        showPanel(user);
+      }
+    });
+  });
+
+  // ── Auth ─────────────────────────────────────────────────
+  async function loginAdmin() {
+    const email    = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const errEl    = document.getElementById('login-error');
+    const btn      = document.getElementById('login-btn');
+
+    if (!email || !password) {
+      errEl.textContent = 'Veuillez remplir tous les champs.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'Connexion…';
+    btn.disabled = true;
+    errEl.style.display = 'none';
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (err) {
+      errEl.textContent = 'Email ou mot de passe incorrect.';
+      errEl.style.display = 'block';
+      btn.textContent = 'Se connecter';
+      btn.disabled = false;
+    }
+  }
+
+  function logoutAdmin() {
+    auth.signOut().then(() => {
+      document.getElementById('admin-panel').style.display  = 'none';
+      document.getElementById('login-section').style.display = 'flex';
+      document.getElementById('admin-status').textContent = '';
+    });
+  }
+
+  function showPanel(user) {
+    document.getElementById('login-section').style.display  = 'none';
+    document.getElementById('admin-panel').style.display    = 'block';
+    document.getElementById('admin-status').textContent     = `✦ Connecté : ${user.email}`;
+    loadAdminStats();
+    loadAdminList();
+  }
+
+  auth.onAuthStateChanged(user => { if (user) showPanel(user); });
+
+  // ── Publish ──────────────────────────────────────────────
+  document.getElementById('publish-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn  = document.getElementById('pub-btn');
+    const succ = document.getElementById('pub-success');
+    const err  = document.getElementById('pub-error');
+
+    btn.textContent = 'Publication…';
+    btn.disabled = true;
+    succ.style.display = 'none';
+    err.style.display  = 'none';
+
+    const titre     = document.getElementById('pub-titre').value.trim();
+    const contenu   = document.getElementById('pub-contenu').value.trim();
+    const categorie = document.getElementById('pub-categorie').value;
+    const dateVal   = document.getElementById('pub-date').value;
+    const slug      = document.getElementById('pub-slug').value.trim() || slugify(titre);
+    const ytUrl     = document.getElementById('pub-yt').value.trim();
+    const verse     = document.getElementById('pub-verse').value.trim();
+    const verseRef  = document.getElementById('pub-verse-ref').value.trim();
+
+    if (!titre || !contenu || !categorie || !dateVal) {
+      err.textContent = 'Veuillez remplir tous les champs obligatoires (*).';
+      err.style.display = 'block';
+      btn.innerHTML = 'Publier l\'exhortation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+      btn.disabled = false;
+      return;
+    }
+
+    try {
+      const docData = {
+        titre,
+        contenu,
+        categorie,
+        date:         dateVal,
+        slug,
+        youtube_url:  ytUrl,
+        verse_du_jour: verse,
+        verse_ref:    verseRef,
+        created_at:   firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      const ref = await db.collection('exhortations').add(docData);
+      succ.textContent = `✅ Exhortation publiée ! ID : ${ref.id}`;
+      succ.style.display = 'block';
+      clearForm();
+      loadAdminStats();
+      loadAdminList();
+    } catch (error) {
+      console.error(error);
+      err.textContent = `Erreur : ${error.message}`;
+      err.style.display = 'block';
+    } finally {
+      btn.innerHTML = 'Publier l\'exhortation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+      btn.disabled = false;
+    }
+  });
+
+  // ── Helpers ──────────────────────────────────────────────
+  function updateSlug(title) {
+    document.getElementById('pub-slug').value = slugify(title);
+  }
+
+  function updatePreview(html) {
+    const preview = document.getElementById('preview-area');
+    const count   = document.getElementById('char-count');
+    preview.innerHTML = html || 'L\'aperçu apparaîtra ici…';
+    count.textContent = `${html.length} caractères`;
+  }
+
+  function clearForm() {
+    document.getElementById('publish-form').reset();
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('pub-date').value = today;
+    document.getElementById('preview-area').innerHTML = 'L\'aperçu apparaîtra ici…';
+    document.getElementById('char-count').textContent = '0 caractères';
+    document.getElementById('pub-slug').value = '';
+  }
+
+  async function loadAdminStats() {
+    try {
+      const snap = await db.collection('exhortations').orderBy('date', 'desc').limit(1).get();
+      document.getElementById('stat-total').textContent = (await db.collection('exhortations').get()).size;
+      if (!snap.empty) {
+        const d = snap.docs[0].data();
+        document.getElementById('stat-last').textContent = d.titre;
+      }
+    } catch (e) { console.error(e); }
+  }
+
+  async function loadAdminList() {
+    const el = document.getElementById('admin-list');
+    try {
+      const snap = await db.collection('exhortations').orderBy('date', 'desc').limit(10).get();
+      if (snap.empty) { el.innerHTML = '<p style="color:var(--text-muted);font-family:var(--ff-sans);font-size:0.88rem;">Aucune exhortation publiée.</p>'; return; }
+
+      el.innerHTML = `
+        <table style="width:100%;border-collapse:collapse;font-family:var(--ff-sans);font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border);">
+              <th style="text-align:left;padding:12px 16px;color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">Titre</th>
+              <th style="text-align:left;padding:12px 16px;color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">Date</th>
+              <th style="text-align:left;padding:12px 16px;color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">Catégorie</th>
+              <th style="text-align:left;padding:12px 16px;color:var(--gold);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${snap.docs.map(doc => {
+              const d = doc.data();
+              return `
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:12px 16px;color:var(--navy);font-weight:500;">${d.titre}</td>
+                  <td style="padding:12px 16px;color:var(--text-muted);">${d.date}</td>
+                  <td style="padding:12px 16px;"><span class="card-categorie">${d.categorie || '—'}</span></td>
+                  <td style="padding:12px 16px;display:flex;gap:8px;">
+                    <a href="exhortation.html?id=${doc.id}" target="_blank" class="btn btn-outline" style="padding:6px 14px;font-size:0.75rem;">Voir</a>
+                    <button onclick="deleteExhortation('${doc.id}')" style="padding:6px 14px;background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius-sm);cursor:pointer;font-size:0.75rem;font-family:var(--ff-sans);">Supprimer</button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    } catch (e) {
+      el.innerHTML = '<p style="color:var(--text-muted);">Erreur de chargement.</p>';
+    }
+  }
+
+  async function deleteExhortation(id) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette exhortation ? Cette action est irréversible.')) return;
+    try {
+      await db.collection('exhortations').doc(id).delete();
+      loadAdminStats();
+      loadAdminList();
+    } catch (e) {
+      alert('Erreur lors de la suppression.');
+    }
+  }
+  </script>
+</body>
+</html>
