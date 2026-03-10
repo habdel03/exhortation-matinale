@@ -1681,6 +1681,15 @@ section, main, footer, header {
   transform: translateY(0);
 }
 
+/* Fallback : si JS ne déclenche pas l'observer (mobile, lenteur) */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .cards-grid,

@@ -68,15 +68,23 @@ function buildWhatsAppLink(title, content, url) {
 
 // ── Intersection Observer for fade-in animations ──
 function initFadeIn() {
+  const elements = document.querySelectorAll('.fade-in');
+  
+  // Sécurité : rendre tout visible après 800ms quoi qu'il arrive
+  setTimeout(() => {
+    elements.forEach(el => el.classList.add('visible'));
+  }, 800);
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  elements.forEach(el => observer.observe(el));
 }
 
 // ── Mobile navigation ──
